@@ -3,8 +3,6 @@ package store
 import (
 	"fmt"
 	"testing"
-
-	"github.com/christhirst/oauth"
 )
 
 func TestAddEntryToDb(t *testing.T) {
@@ -61,7 +59,7 @@ func TestViewEntryDb(t *testing.T) {
 	}
 	defer bdb.Close()
 	key := "client testclient"
-	clientConf := oauth.Registration{Client_id: "test2", Redirect_uris: []string{"https://test.de"}}
+	clientConf := []string{} // oauth.Registration{Client_id: "test2", Redirect_uris: []string{"https://test.de"}}
 	b := StructToDB(clientConf)
 	n := map[string][]byte{key: b.Bytes()}
 	for i, v := range n {
@@ -89,7 +87,7 @@ func TestPrefixDb(t *testing.T) {
 	}
 	defer bdb.Close()
 	key := "client testclient"
-	clientConf := oauth.Registration{Client_id: "test2", Redirect_uris: []string{"https://test.de"}}
+	clientConf := []string{} //oauth.Registration{Client_id: "test2", Redirect_uris: []string{"https://test.de"}}
 	b := StructToDB(clientConf)
 	n := map[string][]byte{key: b.Bytes()}
 	for i, v := range n {
@@ -104,7 +102,7 @@ func TestPrefixDb(t *testing.T) {
 		t.Error(err)
 		for i, v := range clientlist {
 			fmt.Println(i)
-			entry, _ := ByteToStruct(v, oauth.Registration{})
+			entry, _ := ByteToStruct(v, []string{})
 			fmt.Println(entry)
 		}
 	}
